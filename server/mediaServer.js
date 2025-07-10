@@ -1,4 +1,4 @@
-const NodeMediaServer = require('node-media-server');
+const  NodeMediaServer  = require('node-media-server');
 
 const config = {
   rtmp: {
@@ -10,19 +10,26 @@ const config = {
   },
   http: {
     port: 8000,
-    allow_origin: '*'
+    allow_origin: '*',
+    mediaroot: './media',
+    webroot: './www',
+    cors: true
   },
   trans: {
-    ffmpeg: 'C:/path/to/ffmpeg.exe', // Make sure FFmpeg is installed and path is correct
+    ffmpeg: 'C:/ffmpeg/bin/ffmpeg.exe',
     tasks: [
       {
         app: 'live',
         hls: true,
         hlsFlags: '[hls_time=2:hls_list_size=3:hls_flags=delete_segments]',
+        dash: false
       }
     ]
   }
 };
 
-const nms = new NodeMediaServer(config);
+console.log('✅ Starting media server with config:');
+console.log(config);
+
+const nms = new NodeMediaServer(config); // ✅ Not wrapped
 nms.run();

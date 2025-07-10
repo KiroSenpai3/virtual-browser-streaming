@@ -2,18 +2,19 @@
 const { spawn } = require('child_process');
 
 function startFFmpegStream() {
-  const ffmpeg = spawn('ffmpeg', [
+  const ffmpeg = spawn('C:/ffmpeg/bin/ffmpeg.exe', [
     '-f', 'gdigrab',
     '-framerate', '30',
     '-i', 'title=Google', // Replace this with the actual window title if needed
     '-f', 'dshow',
     '-i', 'audio=Microphone (USB PnP Audio Device)', // Change to match your mic name
+    '-vf', 'scale=1280:720',
     '-vcodec', 'libx264',
     '-preset', 'ultrafast',
     '-pix_fmt', 'yuv420p',
     '-acodec', 'aac',
     '-f', 'flv',
-    'rtmp://localhost/live/stream'
+    'rtmp://localhost:1935/live/stream'
   ]);
 
   ffmpeg.stdout.on('data', (data) => {

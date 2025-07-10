@@ -34,7 +34,10 @@ io.on('connection', (socket) => {
     if (isHost && !browserInstance) {
       io.to(roomId).emit('host-joined');
 
+      console.log('launching browser...');
       // ✅ Launch Chrome browser
+
+      try{
       browserInstance = await puppeteer.launch({
         headless: false, // Needed for capturing video/audio
         defaultViewport: null,
@@ -48,6 +51,9 @@ io.on('connection', (socket) => {
       const page = pages[0];
       await page.goto('https://www.google.com');
       console.log('🚀 Chrome browser launched and opened Google.');
+    } catch(err){
+      console.error('❌ Failed to launch browser:', err);
+    }
 
       // ✅ Start FFmpeg stream if not already started
       if (!ffmpegProcess) {
