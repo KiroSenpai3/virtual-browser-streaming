@@ -14,7 +14,7 @@
     "cors": "^2.8.5",
     "express": "^5.1.0",
     "hls.js": "^1.6.2",
-    "node-media-server": "^4.0.17",
+    "node-media-server": "^4.0.18",
     "puppeteer": "^24.8.2",
     "socket.io": "^4.8.1"
   }
